@@ -2,11 +2,13 @@ const request = require('request');
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/TyQelmM18AzWHSMN0GBP'));
 
+var lastLine = "";
+
 setInterval(function() {
 
 	web3.eth.getBlockNumber()
 		.then(function(bn) {
-			console.log('ETH blockheight', bn);
+			var line1 = 'ETH blockheight '+ bn
 			var line2="";
 			if (price_swt){
 				line2+="SWT/EUR " + price_swt.price_eur + " ";
@@ -14,7 +16,14 @@ setInterval(function() {
 			if (price_eth){
 				line2+="ETH/EUR " + price_eth.price_eur + " ";
 			}
-			console.log(line2);
+
+			var newLine = line1+line2;
+			if (newLine != lastLine){
+				console.log(line1);
+				console.log(line2);
+				lastLine = newLine;
+			}
+
 		});
 
 }, 3000);
