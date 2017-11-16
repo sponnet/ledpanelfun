@@ -38,7 +38,7 @@ function getPrice() {
 				return
 			}
 			try {
-				let parsedBody = JSON.parse(body);
+				var parsedBody = JSON.parse(body);
 				price_swt = {
 					price_btc: parsedBody[0].price_btc,
 					price_eur: Number(parsedBody[0].price_eur).toFixed(2),
@@ -60,7 +60,7 @@ function getPrice() {
 				return
 			}
 			try {
-				let parsedBody = JSON.parse(body);
+				var parsedBody = JSON.parse(body);
 				price_eth = {
 					price_btc: parsedBody[0].price_btc,
 					price_eur: Number(parsedBody[0].price_eur).toFixed(2),
