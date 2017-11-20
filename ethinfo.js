@@ -24,26 +24,11 @@ setInterval(function() {
 
 
 
-var leftpad = 64;
-
 // render...
 setInterval(function() {
 
-	var line1 = '';
-	for (var i = 0; i < leftpad; i++) {
-		line1 += ' ';
-	}
-	leftpad--;
-	if (leftpad < 0) {
-		leftpad = 64;
-	}
 
 	line1 += 'ETH blockheight ' + blockNumber;
-	for (var i = 0; i < 64-leftpad; i++) {
-		line1 += ' ';
-	}
-
-
 
 	var line2 = "";
 	if (price_swt) {
@@ -55,7 +40,7 @@ setInterval(function() {
 
 	var newLine = line1 + line2;
 	if (newLine != lastLine) {
-		console.log(line1.substring(32,64));
+		console.log(line1);
 		console.log(line2); //.substring(0,15));
 		lastLine = newLine;
 	}
