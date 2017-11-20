@@ -4,29 +4,64 @@ var web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/T
 
 var lastLine = "";
 
-setInterval(function() {
+var blockNumber;
+
+function getBN() {
 
 	web3.eth.getBlockNumber()
 		.then(function(bn) {
-			var line1 = 'ETH blockheight '+ bn
-			var line2="";
-			if (price_swt){
-				line2+="SWT/EUR " + price_swt.price_eur + " ";
-			}
-			if (price_eth){
-				line2+="ETH/EUR " + price_eth.price_eur + " ";
-			}
 
-			var newLine = line1+line2;
-			if (newLine != lastLine){
-				console.log(line1);
-				console.log(line2);
-				lastLine = newLine;
-			}
+			blockNumber = bn;
 
 		});
+}
+getBN();
+
+setInterval(function() {
+	getBN();
 
 }, 3000);
+
+
+
+var leftpad = 64;
+
+// render...
+setInterval(function() {
+
+	var line1 = '';
+	for (var i = 0; i < leftpad; i++) {
+		line1 += ' ';
+	}
+	leftpad--;
+	if (leftpad < 0) {
+		leftpad = 64;
+	}
+
+	line1 += 'ETH blockheight ' + blockNumber;
+	for (var i = 0; i < 64-leftpad; i++) {
+		line1 += ' ';
+	}
+
+
+
+	var line2 = "";
+	if (price_swt) {
+		line2 += "SWT/EUR " + price_swt.price_eur + " ";
+	}
+	if (price_eth) {
+		line2 += "ETH/EUR " + price_eth.price_eur + " ";
+	}
+
+	var newLine = line1 + line2;
+	if (newLine != lastLine) {
+		console.log(line1.substring(32,64));
+		console.log(line2); //.substring(0,15));
+		lastLine = newLine;
+	}
+
+}, 250);
+
 
 
 getPrice();
@@ -36,7 +71,7 @@ var price_eth;
 
 setInterval(function() {
 	getPrice();
-},60*1000);
+}, 60 * 1000);
 
 
 function getPrice() {
