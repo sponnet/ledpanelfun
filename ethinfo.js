@@ -1,4 +1,5 @@
 const request = require('request');
+var dateFormat = require('dateformat');
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/TyQelmM18AzWHSMN0GBP'));
 
@@ -28,7 +29,7 @@ setInterval(function() {
 setInterval(function() {
 
 
-	line1 += 'ETH blockheight ' + blockNumber;
+	var line1 = 'ETH blockheight ' + blockNumber + '    ' + dateFormat(new Date(), "HH:MM");
 
 	var line2 = "";
 	if (price_swt) {
